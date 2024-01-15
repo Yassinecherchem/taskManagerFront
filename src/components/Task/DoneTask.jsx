@@ -47,7 +47,7 @@ const style = {
 
 const DoneTask = () => {
   const [DoneTasks, setDoneTasks] = useState([]);
-  const [status, setStatus] = useState("TODO");
+  const [status, setStatus] = useState("DONE");
   const [title, setTitle] = useState(DoneTasks.title);
   const [description, setDescription] = useState("");
   const [openModal, setOpenModal] = useState(false);
@@ -98,6 +98,11 @@ const DoneTask = () => {
         reminder: false, // Adjust as needed
       });
 
+      if(response.ok){
+        console.log("Task added:", response.data);
+        fetchData();
+        handleUpdateModalClose();
+      }
       console.log("Task added:", response.data);
       handleUpdateModalClose();
       fetchData(); // Refetch data after updating a task
@@ -130,7 +135,6 @@ const DoneTask = () => {
           DONE
         </div>
         {DoneTasks.map((DoneTask) => (
-          <Draggable nodeRef={nodeRef} key={DoneTask.id}>
             <div ref={nodeRef}>
               <Grid container spacing={2}>
                 <Grid item xs={8}>
@@ -207,7 +211,6 @@ const DoneTask = () => {
                 </Grid>
               </Grid>
             </div>
-          </Draggable>
         ))}
       </Item>
     </>

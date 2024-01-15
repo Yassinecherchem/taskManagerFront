@@ -86,7 +86,7 @@ const TodoTask = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [TodoTasks]);
 
   const handleUpdateTask = async (id) => {
     try {
@@ -98,9 +98,12 @@ const TodoTask = () => {
         reminder: false, // Adjust as needed
       });
 
-      console.log("Task added:", response.data);
-      handleUpdateModalClose();
-      fetchData(); // Refetch data after updating a task
+      if(response.ok){
+        console.log("Task added:", response.data);
+        handleUpdateModalClose();
+      }
+      
+       // Refetch data after updating a task
     } catch (error) {
       console.error("Error adding task:", error);
     }

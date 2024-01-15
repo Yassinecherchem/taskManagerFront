@@ -190,12 +190,15 @@ export default function DashBoard(){
           ))}
         </List>
       </Drawer>
+
       <Main open={open}>
+        
         <DrawerHeader/>
         <AddBoxIcon fontSize="large" sx={{color:"white", marginLeft:"97%", marginBottom:"10px"}} onClick={handleAddModalOpen} />
         <AddModal open={openModal} handleClose={handleAddModalClose} />
           <Lists/>
         </Main>
+
       </Box>
     );
 }

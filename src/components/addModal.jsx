@@ -81,7 +81,6 @@ function AddModal({ open, handleClose }) {
 
   const handleAddTask = async () => {
     try {
-      // Make API request to add a new task
       const request = await axios.post('http://localhost:8080/api/v1/task/nosec', {
         title,
         date,
@@ -89,26 +88,24 @@ function AddModal({ open, handleClose }) {
         taskStatus: status,
         reminder: false,
         userId: 1, // Adjust as needed
-      })
-
-      // Handle the response, e.g., close the modal on success
-      console.log('Task added:', request.data)
+      });
+  
+      console.log('Task added:', request.data);
       handleClose();
-
-      const responseNoSec = await axios.get('http://localhost:8080/api/v1/task/nosec');
-      const updatedTasks = responseNoSec.data;
-
-    // Update the state with the updated data
-    setTask(updatedTasks);
-    fetchData();
-    
-
-      
+  
+      // Add this line to refetch data after adding a task
+      fetchData();
+  
     } catch (error) {
-      // Handle errors, e.g., show an error message
-      console.error('Error adding task:', error)
+      console.error('Error adding task:', error);
     }
-  }
+  };
+  
+  // Add task as a dependency for useEffect
+  useEffect(() => {
+    fetchData();
+  }, [task]);
+  
 
   return (
     <Modal

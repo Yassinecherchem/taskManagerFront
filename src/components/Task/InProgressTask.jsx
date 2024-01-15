@@ -47,7 +47,7 @@ const style = {
 
 const InProgressTask = () => {
   const [InProgressTasks, setInProgressTasks] = useState([]);
-  const [status, setStatus] = useState("TODO");
+  const [status, setStatus] = useState("INPROGRESS");
   const [title, setTitle] = useState(InProgressTasks.title);
   const [description, setDescription] = useState("");
   const [openModal, setOpenModal] = useState(false);
@@ -99,6 +99,11 @@ const InProgressTask = () => {
       });
 
       console.log("Task added:", response.data);
+      if(response.ok){
+        console.log("Task added:", response.data);
+        fetchData();
+        handleUpdateModalClose();
+      }
       handleUpdateModalClose();
       const responseNoSec = await axios.get('http://localhost:8080/api/v1/task/nosec');
     const updatedTasks = responseNoSec.data;
@@ -135,7 +140,6 @@ const InProgressTask = () => {
           INPROGRESS
         </div>
         {InProgressTasks.map((InProgressTask) => (
-          <Draggable nodeRef={nodeRef} key={InProgressTask.id}>
             <div ref={nodeRef}>
               <Grid container spacing={2}>
                 <Grid item xs={8}>
@@ -212,7 +216,6 @@ const InProgressTask = () => {
                 </Grid>
               </Grid>
             </div>
-          </Draggable>
         ))}
       </Item>
     </>
