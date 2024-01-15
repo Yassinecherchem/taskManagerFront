@@ -1,12 +1,7 @@
-
 import * as React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import DashBoard from './components/DashBoard';
 import './App.css';
-import Lists from './components/Lists';
-import PersistentDrawerLeft from './components/PersistentDrawerLeft';
-
-
-
 
 function App() {
   return (

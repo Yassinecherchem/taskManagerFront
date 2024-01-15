@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -20,7 +21,8 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import AddModal from './addModal';
 import Lists from './Lists';
 
 const drawerWidth = 240;
@@ -91,7 +93,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function DashBoard(){
     const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -99,6 +102,14 @@ export default function DashBoard(){
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleAddModalOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleAddModalClose = () => {
+    setOpenModal(false);
   };
 
     return(
@@ -121,7 +132,7 @@ export default function DashBoard(){
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            Task
+            Task Manager
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -181,6 +192,8 @@ export default function DashBoard(){
       </Drawer>
       <Main open={open}>
         <DrawerHeader/>
+        <AddBoxIcon fontSize="large" sx={{color:"white", marginLeft:"97%", marginBottom:"10px"}} onClick={handleAddModalOpen} />
+        <AddModal open={openModal} handleClose={handleAddModalClose} />
           <Lists/>
         </Main>
       </Box>
